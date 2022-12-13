@@ -60,15 +60,15 @@ import {mapState} from "vuex";
 
           for(let i=0;i<this.className.length;i++){
             for(let j=0;j<this.final[this.num][i].length;j++){
-              let a=parseInt(this.final[this.num][i][j]/10)-1
-              let b=parseInt(this.final[this.num][i][j]%10)
-              if(b===1) arr[a].Monday=this.className[i]
-              if(b===2) arr[a].Tuesday=this.className[i]
-              if(b===3) arr[a].Wednesday=this.className[i]
-              if(b===4) arr[a].Thursday=this.className[i]
-              if(b===5) arr[a].Friday=this.className[i]
-              if(b===6) arr[a].Saturday=this.className[i]
-              if(b===7) arr[a].Sunday=this.className[i]
+              let a=parseInt(this.final[this.num][i][j]/10)
+              let b=parseInt(this.final[this.num][i][j]%10)-1
+              if(a===1) arr[b].Monday=this.className[i]
+              if(a===2) arr[b].Tuesday=this.className[i]
+              if(a===3) arr[b].Wednesday=this.className[i]
+              if(a===4) arr[b].Thursday=this.className[i]
+              if(a===5) arr[b].Friday=this.className[i]
+              if(a===6) arr[b].Saturday=this.className[i]
+              if(a===7) arr[b].Sunday=this.className[i]
             }
           }
           return arr
