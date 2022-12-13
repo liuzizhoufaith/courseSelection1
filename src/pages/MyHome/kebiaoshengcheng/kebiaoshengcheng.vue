@@ -57,7 +57,7 @@ import {mapState} from "vuex";
           arr[4]= {Head:'89节',Monday:'', Tuesday:'', Wednesday:'', Thursday:'', Friday:'', Saturday:'', Sunday:'',}
           arr[5]= {Head:'10,11节',Monday:'', Tuesday:'', Wednesday:'', Thursday:'', Friday:'', Saturday:'', Sunday:'',}
           arr[6]= {Head:'12节',Monday:'', Tuesday:'', Wednesday:'', Thursday:'', Friday:'', Saturday:'', Sunday:'',}
-
+        console.log(this.className+'****'+this.final[this.num][0]+'****'+this.final[this.num][0][0])
           for(let i=0;i<this.className.length;i++){
             for(let j=0;j<this.final[this.num][i].length;j++){
               let a=parseInt(this.final[this.num][i][j]/10)
@@ -71,6 +71,7 @@ import {mapState} from "vuex";
               if(a===7) arr[b].Sunday=this.className[i]
             }
           }
+          console.log(arr)
           return arr
         },
     },

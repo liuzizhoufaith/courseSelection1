@@ -15,7 +15,7 @@
                 </el-option>
               </el-select>
             </div>
-
+        <el-alert title="请填写完整的教学班信息" type="error" v-if="wrong" class="a3" :closable="false"></el-alert>
         <div class="flex-row space-x-30">
           <el-button @click="quxiao">取消添加</el-button>
           <el-button type="success" @click="queren">确认添加</el-button>
@@ -51,6 +51,7 @@ export default {
           {label:'周日67节',value:74},{label:'周日89节',value:75},{label:'周日10,11节',value:76},
           {label:'周日第12节',value:77},
         ],
+        wrong:false
       };
     },
     computed:{
@@ -61,9 +62,17 @@ export default {
   },
     methods: {
       quxiao(){
+        this.$store.dispatch('quxiaotianjia')
         this.$router.push('/shoudongtianjiafangan2')
       },
       queren(){
+        for(let i=0;i<this.MyTime.length;i++){
+          if(this.MyTime[i].length==0) {
+            this.wrong=true
+            return
+          }
+        }
+        this.wrong=false
         this.$store.dispatch('tianjiajiaoxueban',this.MyTime)
         this.$router.push('/shoudongtianjiafangan2')
       }
@@ -78,6 +87,9 @@ export default {
 .a2{
   width: 150px;
   margin-right: 20px;
+}
+.a3{
+  width: 300px;
 }
   .font_1 {
     font-size: 16px;

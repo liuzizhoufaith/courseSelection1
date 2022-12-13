@@ -118,6 +118,9 @@ const actions={
   handDelete(context,value){
     context.commit('HANDDELETE',value)
   },
+  quxiaotianjia(context,value){
+    context.commit('QUXIAOTIANJIA',value)
+  }
 }
 const mutations={
   TIANJIA(state,value){
@@ -192,6 +195,10 @@ const mutations={
     state.handIn=state.handIn.filter((a)=>{
       return a.classId!=value
     })
+  },
+  QUXIAOTIANJIA(state,value){
+    state.MyTime=[]
+    state.classNum=0
   }
 }
 const state={

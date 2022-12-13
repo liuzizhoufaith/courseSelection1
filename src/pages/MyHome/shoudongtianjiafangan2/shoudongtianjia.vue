@@ -59,7 +59,7 @@
             </div>
 
             <div class="flex-row group_7 a5">
-              <el-alert title="填写信息不完整" type="error" show-icon v-if="wrong" class="a7"></el-alert>
+              <el-alert title="填写信息不完整" type="error" show-icon v-if="wrong" class="a7" :closable="false"></el-alert>
               <el-button type="primary" class="text-wrapper_4 a8" @click="Submit1">添加课程</el-button>
 
             </div>
