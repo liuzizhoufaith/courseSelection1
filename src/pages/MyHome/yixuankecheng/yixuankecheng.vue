@@ -35,13 +35,13 @@
 
             <div class="flex-row justify-between group_11" v-for="(class1,index) in want" :key="index" >
               <div class="a8">
-                <div class="font_7 text_21 a4">{{ class1.id }}</div>
-                <div class="font_3 text_22 a5">{{ class1.info }}</div>
+                <div class="font_7 text_21 a4">{{ class1.classId }}</div>
+                <div class="font_3 text_22 a5">{{ class1.className }}</div>
                 <el-select placeholder="查看时间" class="a3">
                   <el-option v-for="(time1,index2) in classTime[index]" :key="index2" :value="Undress(time1)"></el-option>
                 </el-select>
                 <div class="font_3 text_26 a6">{{class1.isMust?'是':'否'}}</div>
-                <el-button type="danger" icon="el-icon-delete" circle class="a7" @click="shanChu(class1.id)"></el-button>
+                <el-button type="danger" icon="el-icon-delete" circle class="a7" @click="shanChu(class1.classId)"></el-button>
               </div>
             </div>
 
@@ -71,23 +71,23 @@ export default {
       let a=[]
       for(let i=0;i<this.want.length;i++){
         a[i]=[]
-        for(let j=0;j<this.want[i].time.length;j++){
+        for(let j=0;j<this.want[i].classTime.length;j++){
           a[i][j]=[]
-          for(let k=0;k<this.want[i].time[j].length;k++){
-            if(parseInt(this.want[i].time[j][k]/10)===1) a[i][j][k]='周一'
-            if(parseInt(this.want[i].time[j][k]/10)===2) a[i][j][k]='周二'
-            if(parseInt(this.want[i].time[j][k]/10)===3) a[i][j][k]='周三'
-            if(parseInt(this.want[i].time[j][k]/10)===4) a[i][j][k]='周四'
-            if(parseInt(this.want[i].time[j][k]/10)===5) a[i][j][k]='周五'
-            if(parseInt(this.want[i].time[j][k]/10)===6) a[i][j][k]='周六'
-            if(parseInt(this.want[i].time[j][k]/10)===7) a[i][j][k]='周日'
-            if(this.want[i].time[j][k]%10===1) a[i][j][k]+='12节'
-            if(this.want[i].time[j][k]%10===2) a[i][j][k]+='34节'
-            if(this.want[i].time[j][k]%10===3) a[i][j][k]+='第5节'
-            if(this.want[i].time[j][k]%10===4) a[i][j][k]+='67节'
-            if(this.want[i].time[j][k]%10===5) a[i][j][k]+='89节'
-            if(this.want[i].time[j][k]%10===6) a[i][j][k]+='10,11节'
-            if(this.want[i].time[j][k]%10===7) a[i][j][k]+='第12节'
+          for(let k=0;k<this.want[i].classTime[j].length;k++){
+            if(parseInt(this.want[i].classTime[j][k]/10)===1) a[i][j][k]='周一'
+            if(parseInt(this.want[i].classTime[j][k]/10)===2) a[i][j][k]='周二'
+            if(parseInt(this.want[i].classTime[j][k]/10)===3) a[i][j][k]='周三'
+            if(parseInt(this.want[i].classTime[j][k]/10)===4) a[i][j][k]='周四'
+            if(parseInt(this.want[i].classTime[j][k]/10)===5) a[i][j][k]='周五'
+            if(parseInt(this.want[i].classTime[j][k]/10)===6) a[i][j][k]='周六'
+            if(parseInt(this.want[i].classTime[j][k]/10)===7) a[i][j][k]='周日'
+            if(this.want[i].classTime[j][k]%10===1) a[i][j][k]+='12节'
+            if(this.want[i].classTime[j][k]%10===2) a[i][j][k]+='34节'
+            if(this.want[i].classTime[j][k]%10===3) a[i][j][k]+='第5节'
+            if(this.want[i].classTime[j][k]%10===4) a[i][j][k]+='67节'
+            if(this.want[i].classTime[j][k]%10===5) a[i][j][k]+='89节'
+            if(this.want[i].classTime[j][k]%10===6) a[i][j][k]+='10,11节'
+            if(this.want[i].classTime[j][k]%10===7) a[i][j][k]+='第12节'
           }
         }
       }
@@ -109,8 +109,6 @@ export default {
       },
       shengCheng(){
         this.$store.dispatch('shengcheng',this.$store.state.want)
-        // console.log(this.$store.state.final)
-        // console.log(this.$store.state.className)
         this.$router.push('/kebiaoshengcheng')
       }
     },

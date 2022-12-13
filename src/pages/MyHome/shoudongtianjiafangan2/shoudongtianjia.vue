@@ -26,22 +26,22 @@
                   <span class="font_6">*</span>
                   <span class="font_7">课程号</span>
                 </div>
-                <el-input v-model="classId" placeholder="请输入" class="a1"></el-input>
+                <el-input v-model="MyClass.classId" placeholder="请输入" class="a1"></el-input>
               </div>
               <div class="flex-row group_10 space-x-26">
                 <div class="group_9">
                   <span class="font_6">*</span>
                   <span class="font_7">课程名</span>
                 </div>
-                <el-input v-model="className" placeholder="请输入" class="a1"></el-input>
+                <el-input v-model="MyClass.className" placeholder="请输入" class="a1"></el-input>
               </div>
               <div class="flex-row group_11">
                 <div class="group_9 a2">
                   <span class="font_6">*</span>
                   <span class="font_7">是否必修</span>
                 </div>
-                <el-radio v-model="isMust" label="1">是</el-radio>
-                <el-radio v-model="isMust" label="2">否</el-radio>
+                <el-radio v-model="MyClass.isMust" label="1">是</el-radio>
+                <el-radio v-model="MyClass.isMust" label="2">否</el-radio>
               </div>
 
             </div>
@@ -53,11 +53,15 @@
                 </div>
                 <el-input v-model="classCount" placeholder="请输入" class="a1" @change="countChange"></el-input>
                 <el-button type="primary" class="a3" @click="tianjiajiaoxueban">填写教学班信息</el-button>
+                <div class="font_2 group_9">已添加的教学班:</div>
+                <el-tag class="a6" v-for="(time2,index) in thisClassTime" :key="index" :type="tag">{{time2.toString()}}</el-tag>
               </div>
             </div>
+
             <div class="flex-row group_7 a5">
-              <el-button type="primary" class="text-wrapper_4" @click="Submit">添加课程</el-button>
-              <el-alert title="错误提示的文案" type="error" show-icon v-if="wrong"></el-alert>
+              <el-alert title="填写信息不完整" type="error" show-icon v-if="wrong" class="a7"></el-alert>
+              <el-button type="primary" class="text-wrapper_4 a8" @click="Submit1">添加课程</el-button>
+
             </div>
 
 
@@ -68,33 +72,28 @@
 
             <div class="flex-row justify-between section_8">
               <div class="flex-row">
-                <span class="font_2">课程号</span>
-                <span class="font_2 text_29">课程名</span>
-                <span class="font_2 text_30">已添加教学班数量</span>
-                <span class="font_2 text_31">是否必修</span>
+                <div class="font_2" >课程号</div>
+                <div class="font_2 text_29">课程名</div>
+                <div class="font_2 a10">教学班</div>
+                <div class="font_2 text_31">是否必修</div>
+                <div class="font_2 text_31">操作</div>
               </div>
-              <span class="font_2 text_32">操作</span>
             </div>
 
-            <div class="flex-row justify-center group_15">
-              <div class="flex-row group_16 space-x-70">
-                <span class="font_2 text_33">C01129</span>
-                <div class="flex-row group_17 space-x-56">
-                  <span class="font_2">数据挖掘技术</span>
-                  <span class="font_2 text_35">3（请输入教学班信息！）</span>
-                </div>
+            <div class="flex-row group_15" v-for="(hand,index) in handIn" :key="index">
+                <div class="font_2  text_36 a8">{{ hand.classId }}</div>
+                <div class="font_2  text_36 a8">{{ hand.className }}</div>
+              <div class="a9">
+                <el-tag class="a6" v-for="(time2,index2) in hand.classTime" :key="index2" :type="tag">{{classTimeName(time2).toString()}}</el-tag>
               </div>
-              <span class="font_2 text_36">是</span>
-              <div class="flex-row group_18 space-x-15">
-                <div class="flex-col items-center text-wrapper_5"><span class="font_1">删除</span></div>
-                <div class="flex-col items-center text-wrapper_6"><span class="font_1">编辑</span></div>
-                <div class="flex-col items-center text-wrapper_7"><span class="font_1">添加教学班</span></div>
-              </div>
+
+                <div class="font_2 text_36 a8">{{hand.isMust?'是':'否'}}</div>
+               <el-button type="danger" icon="el-icon-delete" circle class="a11" @click="deleteClass(hand.classId)"></el-button>
             </div>
+
           </div>
           <div class="flex-row space-x-100">
-            <div class="flex-col items-center text-wrapper_8"><span class="font_9 text_40 text_41">取消</span></div>
-            <div class="flex-col items-center text-wrapper_9"><span class="font_9 text_40 text_42">确定</span></div>
+              <el-button type="success" class="a12" @click="tiaozhuan">确定</el-button>
           </div>
         </div>
       </div>
@@ -103,39 +102,92 @@
 </template>
 
 <script>
-  export default {
+import {mapState} from "vuex";
+
+export default {
     components: {},
     data() {
       return {
-        classId:'',
-        className:'',
         classCount:'',
-        isMust:false,
         wrong:false,
-        newClass:{
-          id:'',
-          info:'',
-          time:[],
-          isMust:false
-        }
+        classTime:[
+          {label:'周一12节',value:11},{label:'周一34节',value:12},{label:'周一第5节',value:13},
+          {label:'周一67节',value:14},{label:'周一89节',value:15},{label:'周一10,11节',value:16},
+          {label:'周一第12节',value:17},{label:'周二12节',value:21},{label:'周二34节',value:22},
+          {label:'周二第5节',value:23},{label:'周二67节',value:24},{label:'周二89节',value:25},
+          {label:'周二10,11节',value:26},{label:'周二第12节',value:27},{label:'周三12节',value:31},
+          {label:'周三34节',value:32},{label:'周三第5节',value:33},{label:'周三67节',value:34},
+          {label:'周三89节',value:35},{label:'周三10,11节',value:36},{label:'周三第12节',value:37},
+          {label:'周四12节',value:41},{label:'周四34节',value:42},{label:'周四第5节',value:43},
+          {label:'周四67节',value:44},{label:'周四89节',value:45},{label:'周四10,11节',value:46},
+          {label:'周四第12节',value:47},{label:'周五12节',value:51},{label:'周五34节',value:52},
+          {label:'周五第5节',value:53},{label:'周五67节',value:54},{label:'周五89节',value:55},
+          {label:'周五10,11节',value:56},{label:'周五第12节',value:57},{label:'周六12节',value:61},
+          {label:'周六34节',value:62},{label:'周六第5节',value:63},{label:'周六67节',value:64},
+          {label:'周六89节',value:65},{label:'周六10,11节',value:66},{label:'周六第12节',value:67},
+          {label:'周日12节',value:71},{label:'周日34节',value:72},{label:'周日第5节',value:73},
+          {label:'周日67节',value:74},{label:'周日89节',value:75},{label:'周日10,11节',value:76},
+          {label:'周日第12节',value:77},
+        ],
       };
     },
-
+  computed:{
+      ...mapState(['MyClass','handIn']),
+    thisClassTime(){
+        let arr=[]
+        for(let i=0;i<this.MyClass.classTime.length;i++){
+          arr[i]=[]
+          for(let k=0;k<this.MyClass.classTime[i].length;k++){
+            let flag=0
+            for(let n=0;n<49;n++){
+              console.log(this.MyClass.classTime)
+              console.log(this.MyClass.classTime[i])
+              console.log(this.MyClass.classTime[i][k])
+              if(this.MyClass.classTime[i][k]==this.classTime[n].value){
+                arr[i][k]=this.classTime[n].label
+                console.log(arr)
+              }
+            }
+          }
+        }
+        return arr
+    }
+  },
     methods: {
-      Submit(){
-        this.newClass.id=this.classId
-        this.newClass.info=this.className
-        this.newClass.time=this.classTime
-        this.$store.dispatch('shoudingtianjia',this.newClass)
-        this.classId=''
-        this.className=''
-        this.classTime=[]
+      Submit1(){
+        console.log('111')
+        if(this.MyClass.classId!=''&&this.MyClass.className!=''&&this.MyClass.isMust!=''&&this.MyClass.classTime!=''){
+          this.$store.dispatch('shoudongtianjia',this.MyClass)
+          this.wrong=false
+        }else this.wrong=true
+
       },
       tianjiajiaoxueban(){
         this.$router.push('/shoudongtianjiafianjiajiaoxueban')
       },
       countChange(){
         this.$store.dispatch('countChange',this.classCount)
+      },
+      classTimeName(time1){
+        let arr=[]
+          for(let k=0;k<time1.length;k++){
+            let flag=0
+            for(let n=0;n<49;n++){
+              if(time1[k]==this.classTime[n].value){
+                arr[k]=this.classTime[n].label
+              }
+            }
+          }
+        return arr
+      },
+      deleteClass(id){
+        if(confirm('确定删除吗?')){
+          this.$store.dispatch('handDelete',id)
+          this.$store.dispatch('shanchu',id)
+        }
+      },
+      tiaozhuan(){
+        this.$router.push('/yixuankecheng')
       }
     },
   };
@@ -157,6 +209,39 @@
 .a5{
   margin-left: 500px;
 }
+.a6{
+  margin-top: 5px;
+}
+.a7{
+  width: 200px;
+  /*margin-top: 30px;*/
+  right: 1250px;
+  position: absolute;
+}
+.a8{
+  width: 145px;
+}
+.a9{
+  width: 645px;
+}
+.a10{
+  margin-left: 300px;
+  margin-right: 300px;
+}
+.a11{
+  height: 40px;
+}
+.a12{
+  margin-left: 550px;
+}
+
+
+
+
+
+
+
+
   .font_5 {
     font-size: 16px;
     font-family: SourceHanSansCN;

@@ -8,6 +8,7 @@ const actions={
   },
   shanchu(context,value){
     context.commit("SHANCHU",value)
+    context.commit("HANDDELETE",value)
   },
   shengcheng(context,value){
     //用户输入的课程信息
@@ -20,8 +21,8 @@ const actions={
 
   //计算课程的所有排列方式数量
       for(let i=0;i<arr.length;i++){
-        n*=arr[i].time.length
-        infoArr[infoArr.length]=arr[i].info
+        n*=arr[i].classTime.length
+        infoArr[infoArr.length]=arr[i].className
       }
 
   //创建一个可以容纳所有排列方式的数组
@@ -43,9 +44,9 @@ const actions={
           return
         }
         //遍历当前课程的每个时段
-        for(let i=0;i<arr[classNum].time.length;i++){
+        for(let i=0;i<arr[classNum].classTime.length;i++){
           //当前要判断是否有冲突的课程,记为filter1
-          let filter1=[...holdArr,arr[classNum].time[i]]
+          let filter1=[...holdArr,arr[classNum].classTime[i]]
 
           //将filter1转为一维数组,记为filter2,准备剪枝
           let filter2=filter1.reduce(function (a,b){
@@ -59,7 +60,7 @@ const actions={
           //如果课程没有冲突,就继续进行迭代,不进行剪枝
           if(newArr11.length==num){
             //将这个时段加入到finalArr中
-            finalArr[count]=[...holdArr,arr[classNum].time[i]]
+            finalArr[count]=[...holdArr,arr[classNum].classTime[i]]
             //将这个时段作为添加下一门课程的预输入
             holdArr=filter1
             //在下一次递归中,进行到下一门课程
@@ -98,7 +99,25 @@ const actions={
   },
   countChange(context,value){
     context.commit("COUNTCHANGE",value)
-  }
+  },
+  tianjiajiaoxueban(context,value){
+    context.commit("TIANJIAJIAOXUEBAN",value)
+  },
+  changeClassId(context,value){
+    context.commit('CHANGECLASSID',value)
+  },
+  changeClassName(context,value){
+    context.commit('CHANGECLASSNAME',value)
+  },
+  changeClassCount(context,value){
+    context.commit('CHANGECLASSCOUNT',value)
+  },
+  changeIsMust(context,value){
+    context.commit('CHANGEISMUST',value)
+  },
+  handDelete(context,value){
+    context.commit('HANDDELETE',value)
+  },
 }
 const mutations={
   TIANJIA(state,value){
@@ -128,7 +147,7 @@ const mutations={
   },
   SHANCHU(state,value){
     state.want=state.want.filter((a)=>{
-      return a.id!=value
+      return a.classId!=value
     })
   },
   SHENGCHENG(state,value){
@@ -137,36 +156,66 @@ const mutations={
     for(let i=0;i<state.want.length;i++){
       let flag=0
       for(let j=0;j<state.className.length;j++){
-        if(state.want[i].info===state.className[j]) flag=1
+        if(state.want[i].className===state.className[j]) flag=1
       }
-      if(flag==0) state.className.push(state.want[i].info)
+      if(flag==0) state.className.push(state.want[i].className)
     }
   },
   SHOUDONGTIANJIA(state,value){
+    console.log('mutations')
+    if(value.isMust=='1') value.isMust=true
+    else value.isMust=false
     state.want.push(value)
+    state.handIn.push(value)
+    state.MyClass={className:'',classId:'',isMust:'',classTime:''}
   },
   COUNTCHANGE(state,value){
     state.classNum=value
+  },
+  TIANJIAJIAOXUEBAN(state,value){
+    state.MyTime=[]
+    state.MyClass.classTime=value
+  },
+  CHANGECLASSID(state,value){
+    state.classId=value
+  },
+  CHANGECLASSNAME(state,value){
+    state.className=value
+  },
+  CHANGECLASSCOUNT(state,value){
+    state.classCount=value
+  },
+  CHANGEISMUST(state,value){
+    state.isMust=value
+  },
+  HANDDELETE(state,value){
+    state.handIn=state.handIn.filter((a)=>{
+      return a.classId!=value
+    })
   }
 }
 const state={
   all:[
-    {id:'1',info:'计算机视觉',time:[[24,25],[31,32]],isMust:false},
-    {id:'2',info:'概A',time:[[21,41],[22,41],[22,42],[24,41],[32,51],[12,51]],isMust:true},
-    {id:'3',info:'毛概',time:[[21],[31],[44],[51],[11],[12],[14]],isMust:true},
-    {id:'4',info:'习概',time:[[22,23],[24,25],[32,33],[34,35],[52,53],[12,13],],isMust:true},
-    {id:'5',info:'数据库',time:[[24,25,52],[12,13,24]],isMust:true},
-    {id:'6',info:'计算机网络',time:[[22,42],[14,44]],isMust:true},
-    {id:'7',info:'操作系统',time:[[25,52],[31,44]],isMust:true},
-    {id:'8',info:'英语',time:[[31],[32],[11],[12]],isMust:false},
-    {id:'9',info:'体育',time:[[11],[14],[21],[22],[34],[32],[42],[44],[45],[52]],isMust:false},
-    {id:'10',info:'离散',time:[[31],[32],[42],[44]],isMust:true},
+    {classId:'1',className:'计算机视觉',classTime:[[24,25],[31,32]],isMust:false},
+    {classId:'2',className:'概A',classTime:[[21,41],[22,41],[22,42],[24,41],[32,51],[12,51]],isMust:true},
+    {classId:'3',className:'毛概',classTime:[[21],[31],[44],[51],[11],[12],[14]],isMust:true},
+    {classId:'4',className:'习概',classTime:[[22,23],[24,25],[32,33],[34,35],[52,53],[12,13],],isMust:true},
+    {classId:'5',className:'数据库',classTime:[[24,25,52],[12,13,24]],isMust:true},
+    {classId:'6',className:'计算机网络',classTime:[[22,42],[14,44]],isMust:true},
+    {classId:'7',className:'操作系统',classTime:[[25,52],[31,44]],isMust:true},
+    {classId:'8',className:'英语',classTime:[[31],[32],[11],[12]],isMust:false},
+    {classId:'9',className:'体育',classTime:[[11],[14],[21],[22],[34],[32],[42],[44],[45],[52]],isMust:false},
+    {classId:'10',className:'离散',classTime:[[31],[32],[42],[44]],isMust:true},
   ],
   want:[],
   final:[],
-  className:[],
+  handIn:[],
+  MyClass:{className:'',classId:'',isMust:'',classTime:''},
+  classCount: 0,
   count:0,
-  classNum:0
+  classNum:0,
+  MyTime:[],
+  className:[]
 }
 const getters={}
 

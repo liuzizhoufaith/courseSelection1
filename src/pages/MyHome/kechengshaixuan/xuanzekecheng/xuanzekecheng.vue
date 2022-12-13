@@ -30,9 +30,9 @@
           <br><div class="divider"></div><br><br>
 <!--          列表信息-->
           <div class="a4">
-            <div class="font_8 text_26 a3">{{ class1.id }}</div>
-            <div class="font_2 a3">{{ class1.info }}</div>
-            <div class="font_2 a3">{{class1.time.length}}</div>
+            <div class="font_8 text_26 a3">{{ class1.classId }}</div>
+            <div class="font_2 a3">{{ class1.className }}</div>
+            <div class="font_2 a3">{{class1.classTime.length}}</div>
             <div class="font_2 a3">{{class1.isMust?'是':'否'}}</div>
 <!--            教学班-->
             <div class="font_2 a5">
@@ -67,23 +67,23 @@ export default {
       let a=[]
       for(let i=0;i<this.all.length;i++){
         a[i]=[]
-        for(let j=0;j<this.all[i].time.length;j++){
+        for(let j=0;j<this.all[i].classTime.length;j++){
           a[i][j]=[]
-          for(let k=0;k<this.all[i].time[j].length;k++){
-            if(parseInt(this.all[i].time[j][k]/10)===1) a[i][j][k]='周一'
-            if(parseInt(this.all[i].time[j][k]/10)===2) a[i][j][k]='周二'
-            if(parseInt(this.all[i].time[j][k]/10)===3) a[i][j][k]='周三'
-            if(parseInt(this.all[i].time[j][k]/10)===4) a[i][j][k]='周四'
-            if(parseInt(this.all[i].time[j][k]/10)===5) a[i][j][k]='周五'
-            if(parseInt(this.all[i].time[j][k]/10)===6) a[i][j][k]='周六'
-            if(parseInt(this.all[i].time[j][k]/10)===7) a[i][j][k]='周日'
-            if(this.all[i].time[j][k]%10===1) a[i][j][k]+='12节'
-            if(this.all[i].time[j][k]%10===2) a[i][j][k]+='34节'
-            if(this.all[i].time[j][k]%10===3) a[i][j][k]+='第5节'
-            if(this.all[i].time[j][k]%10===4) a[i][j][k]+='67节'
-            if(this.all[i].time[j][k]%10===5) a[i][j][k]+='89节'
-            if(this.all[i].time[j][k]%10===6) a[i][j][k]+='10,11节'
-            if(this.all[i].time[j][k]%10===7) a[i][j][k]+='第12节'
+          for(let k=0;k<this.all[i].classTime[j].length;k++){
+            if(parseInt(this.all[i].classTime[j][k]/10)===1) a[i][j][k]='周一'
+            if(parseInt(this.all[i].classTime[j][k]/10)===2) a[i][j][k]='周二'
+            if(parseInt(this.all[i].classTime[j][k]/10)===3) a[i][j][k]='周三'
+            if(parseInt(this.all[i].classTime[j][k]/10)===4) a[i][j][k]='周四'
+            if(parseInt(this.all[i].classTime[j][k]/10)===5) a[i][j][k]='周五'
+            if(parseInt(this.all[i].classTime[j][k]/10)===6) a[i][j][k]='周六'
+            if(parseInt(this.all[i].classTime[j][k]/10)===7) a[i][j][k]='周日'
+            if(this.all[i].classTime[j][k]%10===1) a[i][j][k]+='12节'
+            if(this.all[i].classTime[j][k]%10===2) a[i][j][k]+='34节'
+            if(this.all[i].classTime[j][k]%10===3) a[i][j][k]+='第5节'
+            if(this.all[i].classTime[j][k]%10===4) a[i][j][k]+='67节'
+            if(this.all[i].classTime[j][k]%10===5) a[i][j][k]+='89节'
+            if(this.all[i].classTime[j][k]%10===6) a[i][j][k]+='10,11节'
+            if(this.all[i].classTime[j][k]%10===7) a[i][j][k]+='第12节'
           }
         }
       }

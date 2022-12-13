@@ -7,18 +7,18 @@
           <span class="text">添加教学班</span>
         </div>
 
-            <div class="flex-row group_4" v-for="(mytime,index) of MyTime" >
+            <div class="flex-row group_4" v-for="(mytime,index) of this.classNum*1" >
               <div class="font_1 text_3 a1">教学班{{index+1}}</div>
               <div class="font_4 text_3 a2">请选择教学班时段</div>
-              <el-select v-model="a" multiple placeholder="请选择">
+              <el-select v-model="MyTime[index]" multiple placeholder="请选择">
                 <el-option v-for="(item,index) in classTime" :key="index" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
 
         <div class="flex-row space-x-30">
-              <div class="flex-col items-center text-wrapper_2"><span class="font_5 text_34 text_35">取消</span></div>
-              <div class="flex-col items-center text-wrapper_3"><span class="font_5 text_34 text_36">确定</span></div>
+          <el-button @click="quxiao">取消添加</el-button>
+          <el-button type="success" @click="queren">确认添加</el-button>
         </div>
       </div>
     </div>
@@ -32,7 +32,6 @@ export default {
     components: {},
     data() {
       return {
-        a:[],
         classTime:[
           {label:'周一12节',value:11},{label:'周一34节',value:12},{label:'周一第5节',value:13},
           {label:'周一67节',value:14},{label:'周一89节',value:15},{label:'周一10,11节',value:16},
@@ -55,20 +54,20 @@ export default {
       };
     },
     computed:{
-      ...mapState(['classNum']),
-      MyTime(){
-        let arr=[]
-        let n=this.classNum-0
-        for(let i=0;i<this.classNum;i++){
-          arr[arr.length]=[]
-        }
-        return arr
-      }
+      ...mapState(['MyTime','classNum']),
     },
   watch:{
 
   },
-    methods: {},
+    methods: {
+      quxiao(){
+        this.$router.push('/shoudongtianjiafangan2')
+      },
+      queren(){
+        this.$store.dispatch('tianjiajiaoxueban',this.MyTime)
+        this.$router.push('/shoudongtianjiafangan2')
+      }
+    },
   };
 </script>
 
