@@ -15,14 +15,14 @@
         <div class="flex-col section_6 space-y-57">
 
           <el-table :data="classTable" border style="width: 100%">
-            <el-table-column prop="Head" label="" width="180"></el-table-column>
-            <el-table-column prop="Monday" label="周一" width="180"></el-table-column>
-            <el-table-column prop="Tuesday" label="周二" width="180"></el-table-column>
-            <el-table-column prop="Wednesday" label="周三" width="180"></el-table-column>
-            <el-table-column prop="Thursday" label="周四" width="180"></el-table-column>
-            <el-table-column prop="Friday" label="周五" width="180"></el-table-column>
-            <el-table-column prop="Saturday" label="周六" width="180"></el-table-column>
-            <el-table-column prop="Sunday" label="周日" width="180"></el-table-column>
+            <el-table-column prop="Head" label="" width="130"></el-table-column>
+            <el-table-column prop="Monday" label="周一" width="130"></el-table-column>
+            <el-table-column prop="Tuesday" label="周二" width="130"></el-table-column>
+            <el-table-column prop="Wednesday" label="周三" width="130"></el-table-column>
+            <el-table-column prop="Thursday" label="周四" width="130"></el-table-column>
+            <el-table-column prop="Friday" label="周五" width="130"></el-table-column>
+            <el-table-column prop="Saturday" label="周六" width="130"></el-table-column>
+            <el-table-column prop="Sunday" label="周日" width="130"></el-table-column>
           </el-table>
           <div class="a1 text_7">共有{{classSize}}种排课方法,其中可行的有{{this.$store.state.count}}种</div>
           <div class="flex-row justify-around group_47">

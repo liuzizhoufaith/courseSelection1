@@ -154,6 +154,8 @@ const mutations={
     })
   },
   SHENGCHENG(state,value){
+    state.final=[]
+    state.className=[]
     for(let i=0;i<value.count;i++){
       state.final[i]=value.finalArr[i]
     }
