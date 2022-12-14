@@ -66,7 +66,7 @@ export default {
       return {};
     },
   computed:{
-      ...mapState(['want']),
+      ...mapState(['want','final']),
     classTime(){
       let a=[]
       for(let i=0;i<this.want.length;i++){
@@ -109,8 +109,10 @@ export default {
       },
       shengCheng(){
         this.$store.dispatch('shengcheng',this.$store.state.want)
-        this.$router.push('/kebiaoshengcheng')
-      }
+        if(this.final.length==0||this.final==undefined){
+          this.$router.push('/shengchengshibai')
+        }else this.$router.push('/kebiaoshengcheng')
+      },
     },
   };
 </script>

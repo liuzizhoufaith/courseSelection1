@@ -11,6 +11,7 @@ import Yixuankecheng from '../pages/MyHome/yixuankecheng/yixuankecheng.vue';
 
 import Shoudongtianjiafangan2 from '../pages/MyHome/shoudongtianjiafangan2/shoudongtianjia.vue';
 import Shoudongtianjiafianjiajiaoxueban from '../pages/MyHome/shoudongtianjiafianjiajiaoxueban/shoudongtianjiafianjiajiaoxueban.vue';
+import Shengchengshibai from "@/pages/MyHome/shengchengshibai/shengchengshibai";
 
 import MyHome from "@/pages/MyHome/MyHome";
 
@@ -73,6 +74,11 @@ const routes = [
         path: '/shoudongtianjiafianjiajiaoxueban',
         name: 'shoudongtianjiafianjiajiaoxueban',
         component: Shoudongtianjiafianjiajiaoxueban,
+      },
+      {
+        path: '/shengchengshibai',
+        name: 'shengchengshibai',
+        component: Shengchengshibai,
       },
     ]
   },

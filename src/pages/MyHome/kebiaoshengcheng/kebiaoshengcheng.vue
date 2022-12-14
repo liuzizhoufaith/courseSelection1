@@ -14,7 +14,7 @@
         <span class="text_7">生成课表</span>
         <div class="flex-col section_6 space-y-57">
 
-          <el-table :data="classTable" border style="width: 100%">
+          <el-table :data="classTable" border style="width: 69.6%">
             <el-table-column prop="Head" label="" width="130"></el-table-column>
             <el-table-column prop="Monday" label="周一" width="130"></el-table-column>
             <el-table-column prop="Tuesday" label="周二" width="130"></el-table-column>
@@ -27,7 +27,7 @@
           <div class="a1 text_7">共有{{classSize}}种排课方法,其中可行的有{{this.$store.state.count}}种</div>
           <div class="flex-row justify-around group_47">
             <el-button type="primary">下载课表</el-button>
-            <el-button type="primary">修改课程</el-button>
+            <el-button type="primary" @click="tiaozhuanyixuan">修改课程</el-button>
             <el-button type="primary" @click="shangyizhong">上一种</el-button>
             <el-button type="primary" @click="xiayizhong">下一种</el-button>
           </div>
@@ -81,6 +81,9 @@ import {mapState} from "vuex";
       },
       xiayizhong(){
         if(this.num<this.$store.state.count-1) this.num++
+      },
+      tiaozhuanyixuan(){
+        this.$router.push('/yixuankecheng')
       }
     },
   };

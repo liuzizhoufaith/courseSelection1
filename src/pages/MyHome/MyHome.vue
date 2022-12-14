@@ -29,10 +29,15 @@ import shoudongtianjiafangan2 from "@/pages/MyHome/shoudongtianjiafangan2/shoudo
 import yixuankecheng from "@/pages/MyHome/yixuankecheng/yixuankecheng";
 import pianhaoshezhi1 from "@/pages/pianhaoshezhi/pianhaoshezhi1/pianhaoshezhi1";
 import kebiaoshengcheng from "@/pages/MyHome/kebiaoshengcheng/kebiaoshengcheng";
+import shengchengshibai from "@/pages/MyHome/shengchengshibai/shengchengshibai";
+import {mapState} from "vuex";
 
 export default {
   name: "MyHome",
-  components:{kechengshaixuan,shoudongtianjiafangan2,yixuankecheng,pianhaoshezhi1,kebiaoshengcheng},
+  components:{kechengshaixuan,shoudongtianjiafangan2,yixuankecheng,pianhaoshezhi1,kebiaoshengcheng,shengchengshibai},
+  computed:{
+    ...mapState(['final'])
+  },
   methods:{
     KeChengShaiXuan(){
       this.$router.push('/kechengshaixuan')
@@ -47,7 +52,9 @@ export default {
       this.$router.push('/pianhaoshezhi')
     },
     kebiaoshengcheng(){
-      this.$router.push('kebiaoshengcheng')
+      if(this.final.length==0||this.final==undefined){
+        this.$router.push('/shengchengshibai')
+      }else this.$router.push('/kebiaoshengcheng')
     }
   }
 }
