@@ -154,7 +154,10 @@ const mutations={
     })
   },
   SHENGCHENG(state,value){
-    state.final=value.finalArr
+    for(let i=0;i<value.count;i++){
+      state.final[i]=value.finalArr[i]
+    }
+    state.classSize=value.finalArr.length
     state.count=value.count
     for(let i=0;i<state.want.length;i++){
       let flag=0
@@ -220,10 +223,14 @@ const state={
     {classId:'15',className:'自动化',classTime:[[44,45]],isMust:true},
     {classId:'16',className:'信息',classTime:[[11]],isMust:true},
     {classId:'17',className:'WEB',classTime:[[32,33]],isMust:true},
+    {classId:'18',className:'数据采集',classTime:[[34,35]],isMust:true},
+    {classId:'19',className:'实时计算',classTime:[[41,42]],isMust:true},
+    {classId:'20',className:'数学建模',classTime:[[12,13]],isMust:true},
   ],
   want:[],
   final:[],
   handIn:[],
+  classSize:0,
   MyClass:{className:'',classId:'',isMust:'',classTime:''},
   classCount: 0,
   count:0,

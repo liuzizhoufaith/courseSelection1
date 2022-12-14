@@ -24,7 +24,7 @@
             <el-table-column prop="Saturday" label="周六" width="180"></el-table-column>
             <el-table-column prop="Sunday" label="周日" width="180"></el-table-column>
           </el-table>
-          <div class="a1 text_7">共有{{this.$store.state.final.length}}种排课方法,其中可行的有{{this.$store.state.count}}种</div>
+          <div class="a1 text_7">共有{{classSize}}种排课方法,其中可行的有{{this.$store.state.count}}种</div>
           <div class="flex-row justify-around group_47">
             <el-button type="primary">下载课表</el-button>
             <el-button type="primary">修改课程</el-button>
@@ -47,7 +47,7 @@ import {mapState} from "vuex";
       };
     },
     computed:{
-      ...mapState(['final','className','count']),
+      ...mapState(['final','className','count','classSize']),
       classTable(){
           let arr=[]
           arr[0]= {Head:'12节',Monday:'', Tuesday:'', Wednesday:'', Thursday:'', Friday:'', Saturday:'', Sunday:'',}
