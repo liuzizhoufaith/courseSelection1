@@ -26,16 +26,16 @@
 <!--    显示课程信息-->
       <el-checkbox-group v-model="checked" @change="handleCheckedChange">
 
-        <el-checkbox v-for="(class1,index1) in all" :label="class1" :key="index1" class="a2">
+        <el-checkbox v-for="(class1,index1) in all.slice((num-1)*everynum,num*everynum)" :label="class1" :key="index1" class="a2">
           <br><div class="divider"></div><br><br>
 <!--          列表信息-->
           <div class="a4">
             <div class="font_8 text_26 a3">{{ class1.classId }}</div>
             <div class="font_2 a3">{{ class1.className }}</div>
             <div class="font_2 a3">{{class1.classTime.length}}</div>
-            <div class="font_2 a3">{{class1.isMust?'是':'否'}}</div>
+            <div class="font_2 a5">{{class1.isMust?'是':'否'}}</div>
 <!--            教学班-->
-            <div class="font_2 a5">
+            <div class="font_2 a6">
               <el-select placeholder="教学班">
               <el-option v-for="(time1,index2) in classTime[index1]" :key="index2" :value="Undress(time1)"></el-option>
               </el-select>
@@ -46,8 +46,19 @@
       </el-checkbox-group>
 
     <br>
-    <div class="flex-col items-center "><el-button type="primary" @click="Submit">确认添加</el-button></div>
+    <div class="flex-col items-center a8"><el-button type="primary" @click="Submit">确认添加</el-button></div>
+    <div class="a7">
+      <el-pagination
+        :page-size="everynum"
+        background
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total="all.length">
+      </el-pagination>
+    </div>
   </div>
+
+
 </template>
 
 <script>
@@ -59,6 +70,8 @@ export default {
       checkAll:false,
       isIndeterminate: true,
       checked: [],
+      num:1,
+      everynum:10,
     }
   },
   computed:{
@@ -112,6 +125,9 @@ export default {
       }
       return a
     },
+    handleCurrentChange(index){
+      this.num=index
+    },
   }
 }
 </script>
@@ -120,7 +136,7 @@ export default {
 .a5{
   display: inline-block;
   margin-right: 100px;
-  margin-left: -60px;
+  margin-left: -10px;
 }
 .a2{
   display: block;
@@ -132,6 +148,19 @@ export default {
 .a4{
   display: flex;
   justify-content:left;
+  height: 20px;
+}
+.a6{
+  position: relative;
+  top:-18px;
+  left: 100px;
+}
+.a7{
+  margin-top: 30px;
+  margin-left: 1000px;
+}
+.a8{
+  margin-top: 20px;
 }
 .font_1 {
   font-size: 14px;
@@ -206,6 +235,7 @@ export default {
   border: solid 1px #dcdfe6;
 }
 .divider {
+  width: 1500px;
   margin-right: 40px;
   background-color: #ebeef5;
   height: 1px;

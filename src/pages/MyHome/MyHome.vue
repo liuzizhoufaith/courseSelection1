@@ -1,6 +1,6 @@
 <template>
 <div class="aa">
-  <div class="flex-col section_2">
+  <div class="flex-col section_2 a1">
     <span class="text">定制选课系统</span>
     <div class="flex-col group">
       <div class="flex-row section_3 space-x-80">
@@ -18,7 +18,6 @@
       <div class="flex-col items-start text-wrapper"><button class="font_3 text_6 a1" @click="pianhaoshezhi">偏好设置</button></div>
       <div class="flex-col items-start text-wrapper view_2"><button class="font_3 text_6 a1" @click="kebiaoshengcheng">课表生成</button></div>
     </div>
-    <div class="section_5"></div>
   </div>
   <router-view></router-view>
 </div>

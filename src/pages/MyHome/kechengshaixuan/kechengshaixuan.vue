@@ -16,8 +16,8 @@
       </div>
       <div class="flex-col group_5">
         <span class="text_12">按条件筛选课程</span>
-        <div class="flex-row justify-between section_6">
-          <div class="flex-row group_6 space-x-14">
+        <div class="flex-row section_6">
+          <div class="flex-row group_6 space-x-14 a1">
             <span class="font_5 text_13">年级</span>
 <!--            <div class="flex-row section_7">-->
               <el-select v-model="form.grade" placeholder="请选择年级">
@@ -28,7 +28,7 @@
               </el-select>
 <!--            </div>-->
           </div>
-          <div class="flex-row group_7 space-x-13">
+          <div class="flex-row group_7 space-x-13  a1">
             <span class="font_5 text_15">学院</span>
 <!--            <div class="flex-row section_7">-->
             <el-select v-model="form.college" placeholder="请选择学院">
@@ -37,7 +37,7 @@
             </el-select>
 <!--            </div>-->
           </div>
-          <div class="flex-row group_8 space-x-14">
+          <div class="flex-row group_8 space-x-14  a1">
             <span class="font_5 text_17">专业</span>
 <!--            <div class="flex-row section_7">-->
             <el-select v-model="form.major" placeholder="请选择专业">
@@ -50,7 +50,7 @@
         </div>
         <div class="flex-col section_8 space-y-187">
           <xuanzekecheng></xuanzekecheng>
-          <footer1></footer1>
+<!--          <footer1></footer1>-->
         </div>
       </div>
     </div>
@@ -76,6 +76,9 @@ import footer1 from "@/pages/MyHome/kechengshaixuan/footer1/footer1";
 </script>
 
 <style scoped lang="css">
+.a1{
+  margin-right: 150px;
+}
   .font_1 {
     font-size: 14px;
     font-family: SourceHanSansCN;
